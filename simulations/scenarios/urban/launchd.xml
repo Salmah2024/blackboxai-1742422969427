@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<launch>
+    <copy file="urban.net.xml" />
+    <copy file="urban.rou.xml" />
+    <copy file="urban.sumo.cfg" type="config" />
+    
+    <basedir path="." />
+    
+    <!-- SUMO Binary Configuration -->
+    <seed value="23234" />
+    <route-files value="urban.rou.xml"/>
+    <net-file value="urban.net.xml"/>
+    <gui-settings-file value="urban.view.xml"/>
+    
+    <!-- TraCI Server Configuration -->
+    <remote-port value="9999" />
+    
+    <!-- Simulation Parameters -->
+    <begin value="0" />
+    <end value="1000" />
+    <step-length value="0.1" />
+    
+    <!-- Communication Parameters -->
+    <communication range="300" />
+    <penetration-rate value="1.0" />
+    
+    <!-- V2X Configuration -->
+    <v2x>
+        <sidelink-enabled value="true" />
+        <mode-switching value="true" />
+        <resource-allocation value="dynamic" />
+    </v2x>
+    
+    <!-- Logging Configuration -->
+    <verbose value="true" />
+    <print-emissions value="true" />
+    <log-file value="veins-launchd.log" />
+    
+    <!-- GUI Configuration -->
+    <start value="true" />
+    <quit-on-end value="false" />
+    
+    <!-- Additional Settings -->
+    <processing>
+        <time-to-teleport value="-1" />
+        <ignore-junction-blocker value="60" />
+        <collision.action value="warn" />
+        <lateral-resolution value="0.8" />
+    </processing>
+    
+    <!-- Output Configuration -->
+    <output>
+        <summary-file value="summary.xml" />
+        <tripinfo-file value="tripinfo.xml" />
+        <emission-output value="emissions.xml" />
+        <battery-output value="battery.xml" />
+        <save-state.period value="300" />
+    </output>
+    
+    <!-- Device Configuration -->
+    <device.btreceiver.probability value="1" />
+    <device.btsender.probability value="1" />
+    <device.btreceiver.range value="300" />
+    
+    <!-- Performance Settings -->
+    <performance>
+        <thread-count value="2" />
+        <msg-queue-size value="1000" />
+    </performance>
+</launch>
