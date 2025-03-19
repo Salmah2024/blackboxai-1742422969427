@@ -1,6 +1,9 @@
 #include "NRModule.h"
 #include <inet/common/ModuleAccess.h>
 #include <inet/common/lifecycle/NodeStatus.h>
+#include <simu5g/stack/phy/layer/NRPhy.h>
+
+using namespace simu5g;  // Add this for NRPhy
 
 namespace nr {
 
