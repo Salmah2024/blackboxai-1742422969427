@@ -3,7 +3,12 @@
 
 #include <omnetpp.h>
 #include <inet/common/INETDefs.h>
-#include <simu5g/stack/phy/layer/NRPhy.h>
+
+// Forward declarations
+namespace simu5g {
+    class NRPhy;
+}
+
 #include "ResourceManager.h"
 #include "ModeSwitchController.h"
 
