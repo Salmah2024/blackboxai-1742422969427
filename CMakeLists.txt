@@ -43,8 +43,14 @@ include_directories(
     ${INET_ROOT}/src
     ${VEINS_ROOT}/src
     ${SIMU5G_ROOT}/src
+    ${SIMU5G_ROOT}/src/stack
+    ${SIMU5G_ROOT}/src/stack/phy
+    ${SIMU5G_ROOT}/src/stack/phy/layer
     ${SUMO_ROOT}/include
 )
+
+# Add compile definitions for Simu5G
+add_definitions(-DWITH_SIMU5G)
 
 # Find source files
 file(GLOB_RECURSE SOURCES
@@ -67,6 +73,17 @@ string(REPLACE ";" ";" NED_FOLDERS_STR "${NED_FOLDERS}")
 # Create executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+# Find Simu5G library
+find_library(SIMU5G_LIBRARY
+    NAMES simu5g libsimu5g
+    PATHS ${SIMU5G_ROOT}/src
+    NO_DEFAULT_PATH
+)
+
+if(NOT SIMU5G_LIBRARY)
+    message(FATAL_ERROR "Simu5G library not found. Please build Simu5G first.")
+endif()
+
 # Link libraries
 target_link_libraries(${PROJECT_NAME}
     ${OMNETPP_ROOT}/lib/liboppmain.a
@@ -75,7 +92,14 @@ target_link_libraries(${PROJECT_NAME}
     ${OMNETPP_ROOT}/lib/liboppcommon.a
     ${INET_ROOT}/src/INET
     ${VEINS_ROOT}/src/veins
-    ${SIMU5G_ROOT}/src/simu5g
+    ${SIMU5G_LIBRARY}
+)
+
+# Add Simu5G specific compile definitions
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    WITH_SIMU5G
+    USE_SIMU5G
+    INET_IMPORT
 )
 
 # Set compile definitions
